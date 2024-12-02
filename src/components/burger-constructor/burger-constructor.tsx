@@ -2,7 +2,7 @@ import { FC, useMemo, useState } from 'react';
 import { TConstructorIngredient, TOrder } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import {
-  selectCartItems,
+  selectIngredients,
   selectLoading
 } from '../../services/slices/orderSlice';
 import { selectUser } from '../../services/slices/userSlice';
@@ -12,21 +12,21 @@ import { useDispatch, useSelector } from '../../services/storage/store';
 
 export const BurgerConstructor: FC = () => {
   const isLoading = useSelector(selectLoading);
-  const cartItems = useSelector(selectCartItems);
+  const Ingredients = useSelector(selectIngredients);
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const navigate = useNavigate();
 
   const constructorItems = useMemo(() => {
-    const bun = cartItems.find((item) => item.type === 'bun');
-    const otherIngredients = cartItems.filter((item) => item.type !== 'bun');
+    const bun = Ingredients.find((item) => item.type === 'bun');
+    const otherIngredients = Ingredients.filter((item) => item.type !== 'bun');
     return {
       bun: bun ? { ...bun, id: bun._id } : null,
       ingredients: otherIngredients.map((ingredient) => ({
         ...ingredient
       }))
     };
-  }, [cartItems]);
+  }, [Ingredients]);
 
   const [orderModalData, setOrderModalData] = useState<TOrder | null>(null);
 

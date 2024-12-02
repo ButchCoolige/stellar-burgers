@@ -4,13 +4,13 @@ import { orderBurgerApi, TNewOrderResponse } from '../../utils/burger-api';
 import { RootState } from '../storage/store';
 
 interface BurgerState {
-  cartItems: TConstructorIngredient[];
+  Ingredients: TConstructorIngredient[];
   loading: boolean;
   error: string | null;
 }
 
 export const initialState: BurgerState = {
-  cartItems: [],
+  Ingredients: [],
   loading: false,
   error: null
 };
@@ -27,40 +27,42 @@ export const orderSliсe = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    addCartItem: (state, action: PayloadAction<TConstructorIngredient>) => {
+    addIngredient: (state, action: PayloadAction<TConstructorIngredient>) => {
       const ingredient = action.payload;
 
       if (ingredient.type === 'bun') {
-        state.cartItems = state.cartItems.filter((item) => item.type !== 'bun');
+        state.Ingredients = state.Ingredients.filter(
+          (item) => item.type !== 'bun'
+        );
       }
-      state.cartItems.push(action.payload);
+      state.Ingredients.push(action.payload);
     },
-    removeCartItem: (state, action: PayloadAction<string>) => {
-      state.cartItems = state.cartItems.filter(
+    removeIngredient: (state, action: PayloadAction<string>) => {
+      state.Ingredients = state.Ingredients.filter(
         (item) => item.id !== action.payload
       );
     },
-    moveCartItemUp: (state, action: PayloadAction<string>) => {
+    moveIngredientUp: (state, action: PayloadAction<string>) => {
       const itemId = action.payload;
-      const currentIndex = state.cartItems.findIndex(
+      const currentIndex = state.Ingredients.findIndex(
         (item) => item.id === itemId
       );
-      const newArray = [...state.cartItems];
+      const newArray = [...state.Ingredients];
       const temp = newArray[currentIndex];
       newArray[currentIndex] = newArray[currentIndex - 1];
       newArray[currentIndex - 1] = temp;
-      state.cartItems = newArray;
+      state.Ingredients = newArray;
     },
-    moveCartItemDown: (state, action: PayloadAction<string>) => {
+    moveIngredientDown: (state, action: PayloadAction<string>) => {
       const itemId = action.payload;
-      const currentIndex = state.cartItems.findIndex(
+      const currentIndex = state.Ingredients.findIndex(
         (item) => item.id === itemId
       );
-      const newArray = [...state.cartItems];
+      const newArray = [...state.Ingredients];
       const temp = newArray[currentIndex];
       newArray[currentIndex] = newArray[currentIndex + 1];
       newArray[currentIndex + 1] = temp;
-      state.cartItems = newArray;
+      state.Ingredients = newArray;
     }
   },
   extraReducers: (builder) => {
@@ -70,7 +72,7 @@ export const orderSliсe = createSlice({
         state.error = null;
       })
       .addCase(sendOrder.fulfilled, (state, action) => {
-        state.cartItems = [];
+        state.Ingredients = [];
         state.loading = false;
       })
       .addCase(sendOrder.rejected, (state, action) => {
@@ -84,9 +86,13 @@ export default orderSliсe.reducer;
 
 export { sendOrder };
 
-export const { addCartItem, removeCartItem, moveCartItemUp, moveCartItemDown } =
-  orderSliсe.actions;
+export const {
+  addIngredient,
+  removeIngredient,
+  moveIngredientUp,
+  moveIngredientDown
+} = orderSliсe.actions;
 
 export const selectLoading = (state: RootState) => state.order.loading;
 export const selectError = (state: RootState) => state.order.error;
-export const selectCartItems = (state: RootState) => state.order.cartItems;
+export const selectIngredients = (state: RootState) => state.order.Ingredients;

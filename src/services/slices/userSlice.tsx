@@ -61,7 +61,78 @@ const logoutUser = createAsyncThunk<{ success: boolean }>(
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {}
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.loading = false;
+      })
+      .addCase(getUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error =
+          action.error.message || 'An error during getting the user data';
+      })
+      .addCase(regUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(regUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.loading = false;
+        setCookie('accessToken', action.payload.accessToken);
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
+      })
+      .addCase(regUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error =
+          action.error.message || 'An error during user registration';
+      })
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.loading = false;
+        setCookie('accessToken', action.payload.accessToken);
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to login';
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.loading = false;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to update user';
+      })
+      .addCase(logoutUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.user = null;
+        localStorage.removeItem('refreshToken');
+        deleteCookie('accessToken');
+        state.loading = false;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to logout user';
+      });
+  }
 });
 
 export { getUser, regUser, loginUser, updateUser, logoutUser };
