@@ -19,7 +19,7 @@ const getIngredients = createAsyncThunk<TIngredient[]>(
   'order/getIngredients',
   async () => {
     const data = await getIngredientsApi();
-    console.log('Ingredients:', data);
+
     return data;
   }
 );

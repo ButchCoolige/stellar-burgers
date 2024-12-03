@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import {
   Input,
   Button,
@@ -6,7 +6,12 @@ import {
 } from '@zlden/react-developer-burger-ui-components';
 import styles from '../common.module.css';
 import { Link } from 'react-router-dom';
-import { LoginUIProps } from './type';
+import { PageUIProps } from '../common-type';
+
+type LoginUIProps = PageUIProps & {
+  password: string;
+  setPassword: Dispatch<SetStateAction<string>>;
+};
 
 export const LoginUI: FC<LoginUIProps> = ({
   email,
