@@ -33,8 +33,6 @@ export const BurgerConstructor: FC = () => {
   const onOrderClick = () => {
     if (!constructorItems.bun || !constructorItems.ingredients.length) return;
     if (!user) return navigate('/login');
-    //let currentDate = new Date();
-    //console.log('нажата клавиша заказа', currentDate);
 
     const ingredients = [
       constructorItems.bun.id,
@@ -44,7 +42,6 @@ export const BurgerConstructor: FC = () => {
       .unwrap()
       .then((response) => {
         const newOrder = response.order;
-        //console.log('order sent. Info:', newOrder);
         setOrderModalData(newOrder);
       })
       .catch((err) => {

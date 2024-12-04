@@ -28,7 +28,7 @@ import { getFeed, selectFeed } from '../../services/slices/feedSlice';
 const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const state = location.state as { backgroundLocation?: Location };
+  const state = location.state as { background?: Location };
   const navigate = useNavigate();
   const ingredients = useSelector(selectIngredients);
   const feed = useSelector(selectFeed);
@@ -49,10 +49,7 @@ const App = () => {
     <div className={styles.app}>
       <AppHeader />
 
-      <Routes location={state?.backgroundLocation || location}>
-        {/* {appRoutes.map((route) => (
-          <Route key={route.path} {...route} />
-        ))} */}
+      <Routes location={state?.background || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' index element={<Feed />} />
         <Route path='/feed/:number' element={<OrderInfo />} />
@@ -119,7 +116,7 @@ const App = () => {
         <Route path='*' element={<NotFound404 />} />
       </Routes>
 
-      {state?.backgroundLocation && (
+      {state?.background && (
         <Routes>
           <Route
             path='feed/:number'
@@ -152,70 +149,5 @@ const App = () => {
     </div>
   );
 };
-
-/* const appRoutes = [
-  { path: '/', element: <ConstructorPage /> },
-  { path: '/feed', index: true, element: <Feed /> },
-  { path: '/feed/:number', element: <OrderInfo /> },
-  { path: '/ingredients/:id', element: <IngredientDetails /> },
-  {
-    path: '/login',
-    element: (
-      <ProtectedRoute onlyUnAuth>
-        <Login />
-      </ProtectedRoute>
-    )
-  },
-  {
-    path: '/register',
-    element: (
-      <ProtectedRoute onlyUnAuth>
-        <Register />
-      </ProtectedRoute>
-    )
-  },
-  {
-    path: '/forgot-password',
-    element: (
-      <ProtectedRoute onlyUnAuth>
-        <ForgotPassword />
-      </ProtectedRoute>
-    )
-  },
-  {
-    path: '/reset-password',
-    element: (
-      <ProtectedRoute onlyUnAuth>
-        <ResetPassword />
-      </ProtectedRoute>
-    )
-  },
-  {
-    path: '/profile',
-    index: true,
-    element: (
-      <ProtectedRoute>
-        <Profile />
-      </ProtectedRoute>
-    )
-  },
-  {
-    path: '/orders',
-    element: (
-      <ProtectedRoute>
-        <ProfileOrders />
-      </ProtectedRoute>
-    )
-  },
-  {
-    path: 'orders/:number',
-    element: (
-      <ProtectedRoute>
-        <OrderInfo />
-      </ProtectedRoute>
-    )
-  },
-  { path: '*', element: <NotFound404 /> }
-]; */
 
 export default App;
