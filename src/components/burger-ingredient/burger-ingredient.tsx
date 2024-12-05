@@ -5,7 +5,7 @@ import { TBurgerIngredientProps } from './type';
 import { useDispatch } from '../../services/storage/store';
 import { addIngredient } from '../../services/slices/orderSlice';
 import { TConstructorIngredient } from '@utils-types';
-import { nanoid } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 
 export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
   ({ ingredient, count }) => {
@@ -15,7 +15,7 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
     const handleAdd = () => {
       const ingredientWithId: TConstructorIngredient = {
         ...ingredient,
-        id: nanoid()
+        id: uuidv4()
       };
       dispatch(addIngredient(ingredientWithId));
     };

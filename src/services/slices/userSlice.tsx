@@ -17,18 +17,17 @@ import { deleteCookie, setCookie } from '../../utils/cookie';
 export interface UserState {
   user: TUser | null;
   loading: boolean;
+  checked: boolean;
   error: string | null;
 }
 
 export const initialState: UserState = {
   user: null,
   loading: false,
+  checked: false,
   error: null
 };
-const getUser = createAsyncThunk<{ user: TUser }>('user/getUser', async () => {
-  const data = await getUserApi();
-  return data;
-});
+const getUser = createAsyncThunk<{ user: TUser }>('user/getUser', getUserApi);
 const loginUser = createAsyncThunk<TAuthResponse, TLoginData>(
   'user/loginUser',
   async (data) => {
@@ -52,10 +51,7 @@ const updateUser = createAsyncThunk<TUserResponse, Partial<TRegisterData>>(
 );
 const logoutUser = createAsyncThunk<{ success: boolean }>(
   'user/logoutUser',
-  async () => {
-    const response = await logoutApi();
-    return response;
-  }
+  logoutApi
 );
 
 export const userSlice = createSlice({

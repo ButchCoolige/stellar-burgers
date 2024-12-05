@@ -21,7 +21,7 @@ export const BurgerIngredientUI: FC<TBurgerIngredientUIProps> = memo(
           className={styles.article}
           to={`/ingredients/${_id}`}
           state={{
-            backgroundLocation: locationState.background.pathname
+            background: locationState.background.pathname
           }}
         >
           {count && <Counter count={count} />}
