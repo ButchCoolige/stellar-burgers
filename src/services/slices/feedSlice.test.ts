@@ -16,7 +16,7 @@ describe('тест feedSlice', () => {
     expect(state.error).toBe(null);
   });
 
-  it('тестирум getFeed.fulfilled', () => {
+  it('тест getFeed.fulfilled', () => {
     const store = createTestStore();
     // имитация  responce на запрос feed
     const mockFeedResponse: TFeedsResponse = {
@@ -47,7 +47,7 @@ describe('тест feedSlice', () => {
     expect(state.error).toBe(null);
   });
 
-  it('тестирум getFeed.rejected', () => {
+  it('тест getFeed.rejected', () => {
     const store = createTestStore();   
     const mockError = 'Cannot get feed';
 
