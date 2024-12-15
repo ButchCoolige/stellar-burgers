@@ -1,0 +1,10 @@
+{
+    "success": true,
+    "accessToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NGIxNmI2ZTM2N2RlMDAxZGFmNTk3OSIsImlhdCI6MTczNDAyNTM0MCwiZXhwIjoxNzM0MDI2NTQwfQ.WeMe5jhqz5m9ZNZ21cIfnJ-N6kc90jKmE3BUqlQdpg4",
+    "refreshToken": "0817926d891827fae76426c4a6c7e365ce8e9825b1304c621846314ffcdb06db36c3b9a6c287cdad",
+    "user": {
+      "email": "butch-c@yandex.ru",
+      "name": "Butch"
+    }
+  }
+  
